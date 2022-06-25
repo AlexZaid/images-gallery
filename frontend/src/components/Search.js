@@ -20,7 +20,7 @@ const Search = ({word, setWord, handleSubmit}) => {
                               <Col xs="auto" className="my-1">
                                 <Button type="submit">Search</Button>
                               </Col>
-                         </Row>
+                        </Row>
                     </Form>
                 </Col>
               </Row>
