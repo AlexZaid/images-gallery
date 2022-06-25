@@ -3,5 +3,8 @@
         "html",
         "javascript",
         "javascriptreact"
-    ]
+    ],
+    "editor.codeActionOnSave": {
+        "source.fixAll.eslint":true
+    }
 }
