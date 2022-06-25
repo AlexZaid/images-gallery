@@ -3,6 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import Search from './components/Search';
 
+const UNSPLASH_ACCESS_KEY= process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
+
+console.log(process.env);
+
 const App = () => {
   const [word, setWord] = useState('');
 
@@ -10,8 +14,16 @@ const App = () => {
     e.preventDefault();
     // console.log(e.target[0].value);
     // console.log(word);
-  }
-    console.log(word);
+    fetch(`https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_ACCESS_KEY}`)
+      .then((res)=> res.json())
+      .then((data)=> {
+        console.log(data);
+      })
+      .catch((err)=> {
+        console.log(err);
+      })
+}
+    
   return (
     <div >
       <Header title="Images Gallery"/>
