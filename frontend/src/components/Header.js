@@ -11,7 +11,7 @@ const Header = ({ title }) => {
     <Navbar style={navbarStyle} variant="dark" expand="lg">
       <Container fluid>
         <Navbar.Brand href="#">
-          <Logo style={{ maxWidth: '12rem', maxHeight: '4rem' }} />
+          <Logo alt={title} style={{ maxWidth: '12rem', maxHeight: '4rem' }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">

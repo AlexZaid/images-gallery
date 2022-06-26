@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Search from './components/Search';
 import ImageCard from './components/ImageCard';
 import { Container, Row, Col } from 'react-bootstrap';
+import Welcome from './components/Welcome';
 
 const UNSPLASH_ACCESS_KEY = process.env.REACT_APP_UNSPLASH_ACCESS_KEY;
 
@@ -16,17 +17,19 @@ const App = () => {
     // console.log(e.target[0].value);
     // console.log(word);
     // {!!images.length && <ImageCard image={images[0]} />}
-    fetch(
-      `https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_ACCESS_KEY}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setImages([{ ...data, title: word }, ...images]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setWord('');
+    if (word.length) {
+      fetch(
+        `https://api.unsplash.com/photos/random/?query=${word}&client_id=${UNSPLASH_ACCESS_KEY}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setImages([{ ...data, title: word }, ...images]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      setWord('');
+    }
   };
 
   const handleDeleteImage = (id) => {
@@ -38,13 +41,17 @@ const App = () => {
       <Header title="Images Gallery" />
       <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
       <Container className="mt-5">
-        <Row md={4}>
-          {images.map((image, i) => (
-            <Col key={i} className="pb-3">
-              <ImageCard image={image} deleteImage={handleDeleteImage} />
-            </Col>
-          ))}
-        </Row>
+        {images.length ? (
+          <Row md={4}>
+            {images.map((image, i) => (
+              <Col key={i} className="pb-3">
+                <ImageCard image={image} deleteImage={handleDeleteImage} />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <Welcome />
+        )}
       </Container>
     </div>
   );
