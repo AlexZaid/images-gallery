@@ -1,3 +1,4 @@
+from importlib.machinery import DEBUG_BYTECODE_SUFFIXES
 import os 
 from flask import Flask,request
 import requests
@@ -7,11 +8,16 @@ load_dotenv(dotenv_path="./.env.local")  # take environment variables from .env.
 
 UNSPLASH_URL="https://api.unsplash.com/photos/random/"
 UNSPLASH_KEY=os.environ.get("UNSPLASH_ACCESS_KEY","")
+DEBUG=bool(os.environ.get("DEBUG",True))
 
 if not UNSPLASH_KEY:
   raise EnvironmentError("Please create .env.local file")
 
 app = Flask(__name__)
+
+app.config["DEBUG"]= DEBUG
+
+
 
 @app.route("/new-image")
 def new_image():
