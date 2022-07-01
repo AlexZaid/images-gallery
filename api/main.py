@@ -1,8 +1,8 @@
-from importlib.machinery import DEBUG_BYTECODE_SUFFIXES
 import os 
 from flask import Flask,request
 import requests
 from dotenv import load_dotenv
+from flask_cors import CORS
 
 load_dotenv(dotenv_path="./.env.local")  # take environment variables from .env.
 
@@ -14,6 +14,7 @@ if not UNSPLASH_KEY:
   raise EnvironmentError("Please create .env.local file")
 
 app = Flask(__name__)
+CORS(app)
 
 app.config["DEBUG"]= DEBUG
 
