@@ -19,18 +19,21 @@ const App = () => {
     // console.log(word);
     // {!!images.length && <ImageCard image={images[0]} />}
     if (word.length) {
-      fetch(`${API_URL}/new-image?query=${word}`)
+      const response = fetch(`${API_URL}/new-image?query=${word}`)
         .then((res) => res.json())
         .then((data) => {
-          setImages([{ ...data, title: word }, ...images]);
+          console.log(data.errors);
+          if (!data.errors) setImages([{ ...data, title: word }, ...images]);
         })
         .catch((err) => {
           console.log(err);
         });
       setWord('');
+      return response;
     }
   };
 
+  console.log(handleSearchSubmit.data);
   const handleDeleteImage = (id) => {
     setImages(images.filter((image) => image.id !== id));
   };
