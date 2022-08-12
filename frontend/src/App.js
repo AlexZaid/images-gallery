@@ -19,17 +19,20 @@ const App = () => {
     // console.log(word);
     // {!!images.length && <ImageCard image={images[0]} />}
     if (word.length) {
-      const response = fetch(`${API_URL}/new-image?query=${word}`)
+      fetch(`${API_URL}/new-image?query=${word}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.errors);
-          if (!data.errors) setImages([{ ...data, title: word }, ...images]);
+          console.log(data);
+          data.id
+            ? setImages([{ ...data, title: word }, ...images])
+            : alert('Not photos found');
         })
         .catch((err) => {
           console.log(err);
         });
       setWord('');
-      return response;
+    } else {
+      alert('Not photos found');
     }
   };
 
